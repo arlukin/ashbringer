@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "/Users/daniel/Desktop/CloudStation/cchome/github/arlukin/ashbringer/bin" >> /etc/paths
