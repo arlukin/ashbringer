@@ -1,3 +1,25 @@
 #!/bin/bash
 
-echo "/Users/daniel/Desktop/CloudStation/cchome/github/arlukin/ashbringer/bin" >> /etc/paths
+# Get dir of jmeter script folder
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+# Set paths
+
+# Centos or Redhat server
+if [ -f "/etc/redhat-release" ]; then
+    if [ -f "/etc/profile.d/ashbringer.sh" ]; then
+        echo "/#!bin/bash" >> /etc/profile.d/ashbringer.sh
+    fi
+    echo "export PATH=${SCRIPT_DIR}:/usr/local/bin:$PATH" >> /etc/profile.d/ashbringer.sh
+
+else
+    # Might be os x
+    echo "${SCRIPT_DIR}/bin" >> /etc/paths
+fi
+

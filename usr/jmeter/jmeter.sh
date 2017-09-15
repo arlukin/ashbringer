@@ -59,9 +59,17 @@ fi
 echo "Configure symbolic link /usr/local/bin/jmeter"
 ln -s ${JMETER_HOME}/bin/jmeter /usr/local/bin/jmeter
 
+[ -f "/usr/local/bin/jmeter-server" ] && rm /usr/local/bin/jmeter-server
+echo "Configure symbolic link /usr/local/bin/jmeter-server"
+ln -s ${JMETER_HOME}/bin/jmeter-server /usr/local/bin/jmeter-server
+
 [ -f "/usr/local/bin/jmeter${JMETER_VERSION}" ] && rm /usr/local/bin/jmeter${JMETER_VERSION}
 echo "Configure symbolic link /usr/local/bin/jmeter${JMETER_VERSION}"
 ln -s ${JMETER_HOME}/bin/jmeter /usr/local/bin/jmeter${JMETER_VERSION}
+
+[ -f "/usr/local/bin/jmeter-server${JMETER_VERSION}" ] && rm /usr/local/bin/jmeter-server${JMETER_VERSION}
+echo "Configure symbolic link /usr/local/bin/jmeter-server${JMETER_VERSION}"
+ln -s ${JMETER_HOME}/bin/jmeter /usr/local/bin/jmeter-server${JMETER_VERSION}
 
 echo "Create user.properties file"
 cp ${USER_PROPERTIES} ${JMETER_HOME}/bin/user.properties
