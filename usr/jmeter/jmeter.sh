@@ -74,4 +74,6 @@ ln -s ${JMETER_HOME}/bin/jmeter /usr/local/bin/jmeter-server${JMETER_VERSION}
 echo "Create user.properties file"
 cp ${USER_PROPERTIES} ${JMETER_HOME}/bin/user.properties
 
-#CMD jmeter ${JMETER_OPTS} -n -t "${TEST_FILE}" -l "${TEST_OUTPUT}"
+jmeter -n -t /opt/ashbringer/usr/jmeter/test.jmx
+rm results.csv
+rm jmeter.log
