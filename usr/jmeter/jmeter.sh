@@ -3,8 +3,8 @@
 
 # Set from cmd line parameter
 JMETER_VERSION="$*"
-if [ ! "${JMETER_VERSION}" == "3.1" ]  && [ ! "${JMETER_VERSION}" == "3.2" ] ; then
-    echo "Need argument with version 3.1 or 3.2"
+if [ ! "${JMETER_VERSION}" == "3.1" ]  && [ ! "${JMETER_VERSION}" == "3.2" ] && [ ! "${JMETER_VERSION}" == "3.3" ] ; then
+    echo "Need argument with version 3.1, 3.2 or 3.2"
     exit 1
 fi
 
