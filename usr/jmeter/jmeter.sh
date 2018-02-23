@@ -3,8 +3,8 @@
 
 # Set from cmd line parameter
 JMETER_VERSION="$*"
-if [ ! "${JMETER_VERSION}" == "3.1" ]  && [ ! "${JMETER_VERSION}" == "3.2" ] && [ ! "${JMETER_VERSION}" == "3.3" ] ; then
-    echo "Need argument with version 3.1, 3.2 or 3.2"
+if [ ! "${JMETER_VERSION}" == "3.1" ]  && [ ! "${JMETER_VERSION}" == "3.2" ] && [ ! "${JMETER_VERSION}" == "3.3" ] && [ ! "${JMETER_VERSION}" == "4.0" ] ; then
+    echo "Need argument with version 3.1, 3.2, 3.2 or 4.0"
     exit 1
 fi
 
@@ -34,7 +34,7 @@ if [ ! -d "${JMETER_HOME}" ]; then
 fi
 
 if [ -d "${JMETER_HOME}" ]; then
-    if [ ! -f "${JMETER_HOME}/lib/ext/plugins-manager.jar" ]; then
+    if [ ! -L "${JMETER_HOME}/lib/ext/plugins-manager.jar" ]; then
         echo "Install jmeter plugins"
         # https://jmeter-plugins.org/install/Install/
         # https://jmeter-plugins.org/wiki/PluginsManagerAutomated/
@@ -55,25 +55,25 @@ if [ -d "${JMETER_HOME}" ]; then
 fi
 
 # Setup symbolic link
-[ -f "/usr/local/bin/jmeter" ] && rm /usr/local/bin/jmeter
+[ -L "/usr/local/bin/jmeter" ] && rm /usr/local/bin/jmeter
 echo "Configure symbolic link /usr/local/bin/jmeter"
 ln -s ${JMETER_HOME}/bin/jmeter /usr/local/bin/jmeter
 
-[ -f "/usr/local/bin/jmeter-server" ] && rm /usr/local/bin/jmeter-server
+[ -L "/usr/local/bin/jmeter-server" ] && rm /usr/local/bin/jmeter-server
 echo "Configure symbolic link /usr/local/bin/jmeter-server"
 ln -s ${JMETER_HOME}/bin/jmeter-server /usr/local/bin/jmeter-server
 
-[ -f "/usr/local/bin/jmeter${JMETER_VERSION}" ] && rm /usr/local/bin/jmeter${JMETER_VERSION}
+[ -L "/usr/local/bin/jmeter${JMETER_VERSION}" ] && rm /usr/local/bin/jmeter${JMETER_VERSION}
 echo "Configure symbolic link /usr/local/bin/jmeter${JMETER_VERSION}"
 ln -s ${JMETER_HOME}/bin/jmeter /usr/local/bin/jmeter${JMETER_VERSION}
 
-[ -f "/usr/local/bin/jmeter-server${JMETER_VERSION}" ] && rm /usr/local/bin/jmeter-server${JMETER_VERSION}
+[ -L "/usr/local/bin/jmeter-server${JMETER_VERSION}" ] && rm /usr/local/bin/jmeter-server${JMETER_VERSION}
 echo "Configure symbolic link /usr/local/bin/jmeter-server${JMETER_VERSION}"
 ln -s ${JMETER_HOME}/bin/jmeter /usr/local/bin/jmeter-server${JMETER_VERSION}
 
 echo "Create user.properties file"
 cp ${USER_PROPERTIES} ${JMETER_HOME}/bin/user.properties
 
-jmeter -n -t /opt/ashbringer/usr/jmeter/test.jmx
+jmeter -n -t $SCRIPT_DIR/test.jmx
 rm results.csv
 rm jmeter.log
